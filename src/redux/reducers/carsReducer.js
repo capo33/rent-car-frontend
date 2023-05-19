@@ -1,7 +1,8 @@
-import * as types from '../constants/carConstants';
+import * as types from "../constants/carConstants";
 
 const initialState = {
   cars: [],
+  car: {},
   loading: false,
   error: null,
 };
@@ -9,6 +10,7 @@ const initialState = {
 export const carsReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_CARS_REQUEST:
+    case types.GET_CAR_BY_ID_REQUEST:
       return {
         ...state,
         loading: true,
@@ -19,6 +21,12 @@ export const carsReducer = (state = initialState, action) => {
         loading: false,
         cars: action.payload,
       };
+    case types.GET_CAR_BY_ID_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        car: action.payload,
+      };
     case types.GET_CARS_FAILURE:
       return {
         ...state,
@@ -26,7 +34,14 @@ export const carsReducer = (state = initialState, action) => {
         error: action.payload.error,
         cars: [],
       };
+    case types.GET_CAR_BY_ID_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
+        car: {},
+      };
     default:
       return state;
   }
-}
+};
