@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Checkbox, DatePicker } from "antd";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 import Spinner from "../components/Spinner";
 import { getCarById } from "../redux/actions/carsActions";
@@ -75,7 +76,12 @@ const BookingCar = () => {
         to,
       }
     };
-    dispatch(bookingCar(bookingData));
+    dispatch(bookingCar({ bookingData ,toast}));
+    // if (bookingData) {
+    //   toast.success("Car booked successfully");
+    // } else {
+    //   toast.error("Car booking failed");
+    // }
     // console.log("bookingData", bookingData);
   };
   return (
@@ -130,7 +136,7 @@ const BookingCar = () => {
           </p>
 
           <button
-            // onClick={bookCar}
+            onClick={bookCar}
             className='btn btn-primary'
           >
             Book Now
