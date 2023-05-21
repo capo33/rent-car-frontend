@@ -13,8 +13,7 @@ const BookingCar = () => {
   const { carId } = useParams();
   const { loading, car } = useSelector((state) => state.cars);
   const { user } = useSelector((state) => state.auth);
-  console.log("user", user);
-  const [startDate, setStartDate] = useState(new Date());
+  // console.log("user", user);
   const [from, setFrom] = useState();
   const [to, setTo] = useState();
   const [totalHours, setTotalHours] = useState(0);
@@ -24,17 +23,16 @@ const BookingCar = () => {
 
   const userID = user?.data?._id;
   const selectTimeSlot = (value) => {
-    console.log("Selected Time: ", value);
+    // console.log("Selected Time: ", value);
     //  console.log('moment',  moment(value[0]).format("MMM DD YYYY HH:mm"));
     //  console.log('moment',  moment(value[1]).format("MMM DD YYYY HH:mm"));
     // moment to read the date and time
-    const startDate = moment(value[0]).format("MMMM Do YYYY, h:mm:ss");
-    const endDate = moment(value[1]).format("MMMM Do YYYY, h:mm:ss");
-    // console.log("startDate", startDate);
-    // console.log("endDate", endDate);
-    // setStartDate(value);
+    const startDate = moment(value[0]?.$d).format("YYYY-MM-DD h:mm");
+    const endDate = moment(value[1]?.$d).format("YYYY-MM-DD h:mm");
+
     setFrom(startDate);
     setTo(endDate);
+
     setTotalHours(value[1].diff(value[0], "hours"));
   };
   const dispatch = useDispatch();
@@ -74,15 +72,14 @@ const BookingCar = () => {
       bookedTimeSlot: {
         from,
         to,
-      }
+      },
     };
-    dispatch(bookingCar({ bookingData ,toast}));
+    dispatch(bookingCar({ bookingData, toast }));
     // if (bookingData) {
     //   toast.success("Car booked successfully");
     // } else {
     //   toast.error("Car booking failed");
     // }
-    // console.log("bookingData", bookingData);
   };
   return (
     <div className='container mt-5'>
@@ -106,7 +103,9 @@ const BookingCar = () => {
           </div>
           <RangePicker
             showTime={{ format: "HH:mm" }}
-            format={"MMMM Do YYYY, h:mm:ss"}
+            showMinutes={true}
+            showHours={true}
+            format={"YYYY-MM-DD h:mm"}
             onChange={selectTimeSlot}
           />
           <p>
@@ -135,10 +134,7 @@ const BookingCar = () => {
             Total Amount: <b>{totalAmount}€</b>
           </p>
 
-          <button
-            onClick={bookCar}
-            className='btn btn-primary'
-          >
+          <button onClick={bookCar} className='btn btn-primary'>
             Book Now
           </button>
           {/* <div className='card'> */}
