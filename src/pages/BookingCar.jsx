@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button, Checkbox, DatePicker, Modal } from "antd";
 import moment from "moment";
 import { toast } from "react-toastify";
+import StripeCheckout from "react-stripe-checkout";
 
 import Spinner from "../components/Spinner";
 import { getCarById } from "../redux/actions/carsActions";
@@ -82,6 +83,30 @@ const BookingCar = () => {
     //   toast.error("Car booking failed");
     // }
   };
+
+  const onToken = (token) => {
+    console.log(token);
+    // bookCar();
+    const bookingData = {
+      user: userID,
+      car: carId,
+      from,
+      to,
+      totalHours,
+      totalAmount,
+      driverRequired: driver,
+      bookedTimeSlot: {
+        from,
+        to,
+      },
+    };
+    dispatch(bookingCar({ bookingData, toast }));
+    // if (bookingData) {
+    //   toast.success("Car booked successfully");
+    // } else {
+    //   toast.error("Car booking failed");
+    // }
+  };
   return (
     <div className='container mt-5'>
       {loading && <Spinner />}
@@ -139,9 +164,23 @@ const BookingCar = () => {
                 Total Amount: <b>{totalAmount}€</b>
               </p>
 
-              <button onClick={bookCar} className='btn btn-primary'>
+              {/* <button onClick={bookCar} className='btn btn-primary'>
                 Book Now
-              </button>
+              </button> */}
+              <StripeCheckout
+                currency='EUR'
+                stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
+                token={onToken}
+                shippingAddress
+                amount={totalAmount * 100}
+              >
+                <button
+                  className='btn1 '
+                  // onClick={bookCar}
+                >
+                  Pay Now
+                </button>
+              </StripeCheckout>
             </>
           )}
           {/* <div className='card'> */}
@@ -234,7 +273,6 @@ const BookingCar = () => {
             return (
               <Button key={slot._id} className='my-2'>
                 <span className=''>
-                  {" "}
                   {moment(slot.from).format("YYYY-MM-DD h:mm")} -
                   {moment(slot.to).format("YYYY-MM-DD h:mm")}
                 </span>
