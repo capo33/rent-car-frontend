@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../redux/actions/authActions";
- 
+
 import "./Dropdown.css";
 const Dropdown = () => {
   const { user } = useSelector((state) => state.auth);
@@ -13,7 +13,7 @@ const Dropdown = () => {
   };
 
   return (
-    <div className='dropdown m-2' >
+    <div className='dropdown m-2'>
       <button
         className='btn btn-secondary dropdown-toggle'
         type='button'
@@ -32,7 +32,7 @@ const Dropdown = () => {
         {user ? (
           <>
             <li>
-              <Link className='dropdown-item' to='/booking'>
+              <Link className='dropdown-item' to='/user-booking'>
                 Booking
               </Link>
             </li>
