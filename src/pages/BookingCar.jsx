@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Checkbox, DatePicker } from "antd";
+import { Button, Checkbox, DatePicker, Modal } from "antd";
 import moment from "moment";
 import { toast } from "react-toastify";
 
@@ -19,6 +19,7 @@ const BookingCar = () => {
   const [totalHours, setTotalHours] = useState(0);
   const [driver, setDriver] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [showModal, setShowModal] = useState(false);
   const { RangePicker } = DatePicker;
 
   const userID = user?.data?._id;
@@ -108,35 +109,41 @@ const BookingCar = () => {
             format={"YYYY-MM-DD h:mm"}
             onChange={selectTimeSlot}
           />
-          <p>
-            Total Hours: <b> {totalHours}</b>
-          </p>
-          <p>
-            {/* Total Amount: {totalHours && totalHours * car?.rentPerHour}€ */}
-            Rent per hour: <b>{car?.rentPerHour}€</b>
-          </p>
-
-          <Checkbox
-            type='checkbox'
-            onChange={(e) => {
-              setDriver(e.target.checked);
-              if (e.target.checked) {
-                setDriver(true);
-              } else {
-                setDriver(false);
-              }
-            }}
-          >
-            Driver
-          </Checkbox>
-
-          <p>
-            Total Amount: <b>{totalAmount}€</b>
-          </p>
-
-          <button onClick={bookCar} className='btn btn-primary'>
-            Book Now
+          <button className='btn-1' onClick={() => setShowModal(true)}>
+            See booked Slots
           </button>
+          {from && to && (
+            <>
+              <p>
+                Total Hours: <b> {totalHours}</b>
+              </p>
+              <p>
+                Rent per hour: <b>{car?.rentPerHour}€</b>
+              </p>
+
+              <Checkbox
+                type='checkbox'
+                onChange={(e) => {
+                  setDriver(e.target.checked);
+                  if (e.target.checked) {
+                    setDriver(true);
+                  } else {
+                    setDriver(false);
+                  }
+                }}
+              >
+                Driver
+              </Checkbox>
+
+              <p>
+                Total Amount: <b>{totalAmount}€</b>
+              </p>
+
+              <button onClick={bookCar} className='btn btn-primary'>
+                Book Now
+              </button>
+            </>
+          )}
           {/* <div className='card'> */}
           {/* <img
                 src={car?.image}
@@ -216,6 +223,25 @@ const BookingCar = () => {
             </div> */}
         </div>
       </div>
+      <Modal
+        title='Booked Time Slots'
+        onCancel={() => setShowModal(false)}
+        footer={null}
+        open={showModal}
+      >
+        {car &&
+          car?.bookedTimeSlots?.map((slot) => {
+            return (
+              <Button key={slot._id} className='my-2'>
+                <span className=''>
+                  {" "}
+                  {moment(slot.from).format("YYYY-MM-DD h:mm")} -
+                  {moment(slot.to).format("YYYY-MM-DD h:mm")}
+                </span>
+              </Button>
+            );
+          })}
+      </Modal>
     </div>
   );
 };

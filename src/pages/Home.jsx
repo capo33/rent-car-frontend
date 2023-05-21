@@ -21,21 +21,41 @@ const Home = () => {
     setTotalCars(cars);
   }, [cars]);
 
- 
-  const setFilterCars = (cars) => {
-   };
+  // filtercar by giving date
+  const setFilterCars = (values) => {
+    const startDate = moment(values[0]?.$d).format("YYYY-MM-DD h:mm");
+    const endDate = moment(values[1]?.$d).format("YYYY-MM-DD h:mm");
+    console.log("startDate", startDate);
+    console.log("endDate", endDate);
+    const filterCars = cars.filter((car) => {
+      return car.bookedTimeSlots.every(
+        (booking) =>
+          moment(startDate).isBefore(booking.from) ||
+          moment(startDate).isAfter(booking.to) ||
+          moment(endDate).isBefore(booking.from) ||
+          moment(endDate).isAfter(booking.to)
+      );
+    });
+
+    console.log("filterCars", filterCars);
+    setTotalCars(filterCars);
+  };
+
   return (
     <>
       <Row className='mt-3' justify={"center"}>
         <Col lg={20} sm={24} className='d-flex justify-center-left'>
-          {/* <h1 className='text-center'>Available Cars</h1> */}
+          <h2 className='text-center'>
+            Available Cars by Date and Time Range
+          </h2>
+        </Col>
+        <Col>
           <RangePicker
             showTime={{ format: "HH:mm" }}
             showMinutes={true}
             showHours={true}
             format={"YYYY-MM-DD h:mm"}
-            onChange={setFilterCars
-            }
+            onChange={setFilterCars}
           />
         </Col>
       </Row>
