@@ -43,3 +43,24 @@ export const getCarById = (id) => async (dispatch) => {
     });
   }
 }
+
+export const addCar = (carData, toast) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.CREATE_CAR_REQUEST ,
+    });
+
+    const { data } = await axios.post(`${API}/api/v1/cars`, carData);
+console.log('data', data);
+    dispatch({
+      type: types.CREATE_CAR_SUCCESS,
+      payload: data,
+    });
+    toast.success("Car added successfully");
+  } catch (error) {
+    dispatch({
+      type: types.CREATE_CAR_FAILURE,
+      payload: error?.response?.data?.message,
+    });
+  }
+}

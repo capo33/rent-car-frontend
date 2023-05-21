@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import BookingCar from './pages/BookingCar';
  import Header from './components/Header';
 import UserBooking from './components/UserBooking';
+import { AddCar } from './pages/AddCar';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/booking-car/:carId" element={<BookingCar />} />
         <Route path="/user-booking" element={<UserBooking />} />
+        <Route path="/addcar" element={<AddCar />} />
 
       </Routes>
     </Router>    
