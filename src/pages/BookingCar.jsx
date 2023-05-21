@@ -51,42 +51,41 @@ const BookingCar = () => {
     //  eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalHours, driver, car?.rentPerHour]);
 
-  const bookCar = () => {
-    // console.log("bookCar", carId, from, to, totalHours, driver, totalAmount);
-    //   const bookingData = {
-    //     carId,
-    //     from,
-    //     to,
-    //     totalHours,
-    //     driver,
-    //     totalAmount,
-    //   };
-    //   console.log("bookingData", bookingData);
-    // };
-    const bookingData = {
-      user: userID,
-      car: carId,
-      from,
-      to,
-      totalHours,
-      totalAmount,
-      driverRequired: driver,
-      bookedTimeSlot: {
-        from,
-        to,
-      },
-    };
-    dispatch(bookingCar({ bookingData, toast }));
-    // if (bookingData) {
-    //   toast.success("Car booked successfully");
-    // } else {
-    //   toast.error("Car booking failed");
-    // }
-  };
+  // const bookCar = () => {
+  //   // console.log("bookCar", carId, from, to, totalHours, driver, totalAmount);
+  //   //   const bookingData = {
+  //   //     carId,
+  //   //     from,
+  //   //     to,
+  //   //     totalHours,
+  //   //     driver,
+  //   //     totalAmount,
+  //   //   };
+  //   //   console.log("bookingData", bookingData);
+  //   // };
+  //   const bookingData = {
+  //     user: userID,
+  //     car: carId,
+  //     from,
+  //     to,
+  //     totalHours,
+  //     totalAmount,
+  //     driverRequired: driver,
+  //     bookedTimeSlot: {
+  //       from,
+  //       to,
+  //     },
+  //   };
+  //   dispatch(bookingCar({ bookingData, toast }));
+  //   // if (bookingData) {
+  //   //   toast.success("Car booked successfully");
+  //   // } else {
+  //   //   toast.error("Car booking failed");
+  //   // }
+  // };
 
   const onToken = (token) => {
-    console.log(token);
-    // bookCar();
+     // bookCar();
     const bookingData = {
       user: userID,
       car: carId,
@@ -99,6 +98,7 @@ const BookingCar = () => {
         from,
         to,
       },
+      token
     };
     dispatch(bookingCar({ bookingData, toast }));
     // if (bookingData) {
@@ -170,6 +170,7 @@ const BookingCar = () => {
               <StripeCheckout
                 currency='EUR'
                 stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
+                // stripeKey="pk_test_51NAHdSCZC0LRtBphsevCWHZw2pQZ3I4O5GXFIUPS9domxtc6TFhcme4UHthC1dHa9M8NyYQcaWeS0vRuKNXqLeG700tUQ1Icv1"
                 token={onToken}
                 shippingAddress
                 amount={totalAmount * 100}
