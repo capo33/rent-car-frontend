@@ -20,16 +20,18 @@ const BookingCar = () => {
   const { carId } = useParams();
   const { loading, car } = useSelector((state) => state.cars);
   const { user } = useSelector((state) => state.auth);
-  // console.log("user", user);
+
   const [from, setFrom] = useState();
   const [to, setTo] = useState();
   const [totalHours, setTotalHours] = useState(0);
   const [driver, setDriver] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const { RangePicker } = DatePicker;
 
+  const dispatch = useDispatch();
+  const { RangePicker } = DatePicker;
   const userID = user?.data?._id;
+
   const selectTimeSlot = (value) => {
     // moment to read the date and time
     const startDate = moment(value[0]?.$d).format("YYYY-MM-DD h:mm");
@@ -40,7 +42,7 @@ const BookingCar = () => {
 
     setTotalHours(value[1].diff(value[0], "hours"));
   };
-  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getCarById(carId));
   }, [dispatch, carId]);

@@ -8,6 +8,7 @@ import Hero from "./Hearo/Hero";
 import Spinner from "../components/Spinner";
 import CarItem from "../components/CarItem/CarItem";
 import { getCars } from "../redux/actions/carsActions";
+import WorkWithUs from "../components/WorkWithUs/WorkWithUs";
 
 const { RangePicker } = DatePicker;
 
@@ -48,8 +49,9 @@ const Home = () => {
     <>
       <Hero />
       <Container>
+        <WorkWithUs />
         <Row className='mt-3' justify={"center"}>
-          <Col lg={20} sm={24}  >
+          <Col lg={20} sm={24}>
             <h2>Available Cars by Date and Time Range</h2>
           </Col>
           <Col>
@@ -62,7 +64,6 @@ const Home = () => {
             />
           </Col>
         </Row>
-
         {loading && <Spinner />}
         <Row>
           {totalCars?.map((car) => (
