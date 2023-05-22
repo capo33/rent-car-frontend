@@ -30,6 +30,10 @@
         }
       }
     }
+
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
   }
 
   .header__middle {
@@ -78,6 +82,10 @@
         background-color: #1b9c85;
       }
     }
+
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
   }
 
   .main__navbar {
@@ -86,12 +94,39 @@
 
     .mobile__menu {
       display: none;
+
+      @media screen and (max-width: 768px) {
+        display: block;
+      }
     }
     .navigation {
+      @media screen and (max-width: 768px) {
+        background: rgb(0, 13, 107, 0.6);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        display: none;
+      }
+
       .menu {
         display: flex;
         align-items: center;
         column-gap: 2.7rem;
+
+        @media screen and (max-width: 768px) {
+          width: 250px;
+          height: 100%;
+          background: teal;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          row-gap: 2rem;
+          justify-content: center;
+        }
+        
         .nav__item {
           color: #fff;
           text-decoration: none;
@@ -106,6 +141,19 @@
           color: #ffe194;
         }
       }
+    }
+    .menu__active {
+      @media screen and (max-width: 768px) {
+        display: block;
+      }
+    }
+  }
+
+  a {
+    @media screen and (max-width: 768px) {
+      color: #000d6b;
+      font-weight: 600;
+      font-size: 0.9rem;
     }
   }
 }

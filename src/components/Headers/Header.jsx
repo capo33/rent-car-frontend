@@ -15,7 +15,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 
 import { logOut } from "../../redux/actions/authActions";
-import { adminLinks, userLinks } from "../../data/NavLinks";
+import { adminLinks, userLinks } from "../../assets/data/NavLinks";
 
 import "./header.scss";
 
