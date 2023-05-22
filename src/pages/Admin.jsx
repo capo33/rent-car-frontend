@@ -56,7 +56,10 @@ const Admin = () => {
                     className='d-flex justify-content-around 
                    align-items-center'
                   >
+                  <Link to={`/editcar/${car._id}`}>
+
                     <EditOutlined style={svgStyle} />
+                  </Link>
                     <DeleteOutlined style={svg2Style} 
                    />
                   </div>

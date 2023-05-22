@@ -7,6 +7,7 @@ import BookingCar from './pages/BookingCar';
 import UserBooking from './components/UserBooking';
 import { AddCar } from './pages/AddCar';
 import Admin from './pages/Admin';
+import { Edit } from './pages/Edit';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         <Route path="/booking-car/:carId" element={<BookingCar />} />
         <Route path="/user-booking" element={<UserBooking />} />
         <Route path="/addcar" element={<AddCar />} />
+        <Route path="/editcar/:carId" element={<Edit />} />
+
         <Route path="/admin" element={<Admin />} />
 
       </Routes>

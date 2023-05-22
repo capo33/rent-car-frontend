@@ -4,6 +4,7 @@ import * as types from "../constants/carConstants";
 
 const API = "http://localhost:5000";
 
+// Get all cars
 export const getCars = () => async (dispatch) => {
   try {
     dispatch({
@@ -14,7 +15,7 @@ export const getCars = () => async (dispatch) => {
 
     dispatch({
       type: types.GET_CARS_SUCCESS,
-      payload: data
+      payload: data,
     });
   } catch (error) {
     dispatch({
@@ -24,6 +25,7 @@ export const getCars = () => async (dispatch) => {
   }
 };
 
+// Get car by id
 export const getCarById = (id) => async (dispatch) => {
   try {
     dispatch({
@@ -34,7 +36,7 @@ export const getCarById = (id) => async (dispatch) => {
 
     dispatch({
       type: types.GET_CAR_BY_ID_SUCCESS,
-      payload: data
+      payload: data,
     });
   } catch (error) {
     dispatch({
@@ -42,16 +44,40 @@ export const getCarById = (id) => async (dispatch) => {
       payload: error.response.data,
     });
   }
-}
+};
 
+// Update car
+export const updateCar = (id, carData, toast) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.UPDATE_CAR_REQUEST,
+    });
+
+    const { data } = await axios.put(`${API}/api/v1/cars/${id}`, carData);
+
+    dispatch({
+      type: types.UPDATE_CAR_SUCCESS,
+      payload: data,
+    });
+    toast.success("Car updated successfully");
+  } catch (error) {
+    dispatch({
+      type: types.UPDATE_CAR_FAILURE,
+      payload: error?.response?.data?.message,
+    });
+  }
+};
+
+
+// Add car
 export const addCar = (carData, toast) => async (dispatch) => {
   try {
     dispatch({
-      type: types.CREATE_CAR_REQUEST ,
+      type: types.CREATE_CAR_REQUEST,
     });
 
     const { data } = await axios.post(`${API}/api/v1/cars`, carData);
-console.log('data', data);
+    console.log("data", data);
     dispatch({
       type: types.CREATE_CAR_SUCCESS,
       payload: data,
@@ -63,4 +89,4 @@ console.log('data', data);
       payload: error?.response?.data?.message,
     });
   }
-}
+};

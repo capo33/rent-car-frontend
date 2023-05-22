@@ -11,23 +11,36 @@ export const carsReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_CARS_REQUEST:
     case types.GET_CAR_BY_ID_REQUEST:
-      case types.CREATE_CAR_REQUEST:
+    case types.UPDATE_CAR_REQUEST:
+    case types.CREATE_CAR_REQUEST:
       return {
         ...state,
         loading: true,
       };
+    // Get all cars
     case types.GET_CARS_SUCCESS:
       return {
         ...state,
         loading: false,
         cars: action.payload,
       };
+    // Get car by id
     case types.GET_CAR_BY_ID_SUCCESS:
       return {
         ...state,
         loading: false,
         car: action.payload,
       };
+    // Update car
+    case types.UPDATE_CAR_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        cars: state.cars.map((car) =>
+          car._id === action.payload._id ? action.payload : car
+        ),
+      };
+    // Create car
     case types.CREATE_CAR_SUCCESS:
       return {
         ...state,
