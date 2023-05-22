@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Checkbox, Col, DatePicker, Row } from "antd";
+import { Container, Row, Col } from "react-bootstrap";
+import { DatePicker } from "antd";
 import moment from "moment";
-import { getCars } from "../redux/actions/carsActions";
-import Spinner from "../components/Spinner";
-import { Container } from "react-bootstrap";
+
 import Hero from "./Hearo/Hero";
+import Spinner from "../components/Spinner";
 import CarItem from "../components/CarItem/CarItem";
+import { getCars } from "../redux/actions/carsActions";
 
 const { RangePicker } = DatePicker;
 
 const Home = () => {
   const { cars, loading } = useSelector((state) => state.cars);
   const [totalCars, setTotalCars] = useState([]);
+
   const dispatch = useDispatch();
-  console.log("totalCars", totalCars);
+
   useEffect(() => {
     dispatch(getCars());
   }, [dispatch]);
@@ -40,7 +41,6 @@ const Home = () => {
       );
     });
 
-    console.log("filterCars", filterCars);
     setTotalCars(filterCars);
   };
 
@@ -49,7 +49,7 @@ const Home = () => {
       <Hero />
       <Container>
         <Row className='mt-3' justify={"center"}>
-          <Col lg={20} sm={24} className='text-center'>
+          <Col lg={20} sm={24}  >
             <h2>Available Cars by Date and Time Range</h2>
           </Col>
           <Col>

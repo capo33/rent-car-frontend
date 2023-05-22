@@ -18,31 +18,30 @@ const Hero = () => {
                 We are the best car rental company in the world
               </h2>
               <p className='section__description'>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Voluptatum blanditiis esse accusantium dignissimos labore
-                laborum. Veniam, corporis mollitia temporibus, in quaerat vero
-                deleniti amet dolorem repudiandae, pariatur nam dolore! Impedit
-                neque sit ad temporibus quam similique dolor ipsam praesentium
-                sunt.
+                {/* something about us */}
+                We are a car rental company that offers a wide range of vehicles
+                for rent. We have a large fleet of cars, which are constantly
+                updated. We offer our clients only the best cars of the most
+                famous brands. We are constantly improving our service and
+                expanding our capabilities. We are always ready to help our dear
+                customers.
               </p>
 
               <div className='about__section-item d-flex align-items-center'>
                 <p className='section__description d-flex align-items-center gap-2'>
-                  <IoMdCheckbox /> Lorem ipsum dolor sit amet.
+                  <IoMdCheckbox /> 24/7 support service
                 </p>
-
                 <p className='section__description d-flex align-items-center gap-2'>
-                  <IoMdCheckbox /> Lorem ipsum dolor sit amet.
+                  <IoMdCheckbox /> Flexible rental periods
                 </p>
               </div>
 
               <div className='about__section-item d-flex align-items-center'>
                 <p className='section__description d-flex align-items-center gap-2'>
-                  <IoMdCheckbox /> Lorem ipsum dolor sit amet.
+                  <IoMdCheckbox /> Simple and fast booking
                 </p>
-
                 <p className='section__description d-flex align-items-center gap-2'>
-                  <IoMdCheckbox /> Lorem ipsum dolor sit amet.
+                  <IoMdCheckbox /> No hidden costs
                 </p>
               </div>
             </div>

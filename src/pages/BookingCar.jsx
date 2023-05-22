@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Checkbox, DatePicker, Modal } from "antd";
-import moment from "moment";
-import { toast } from "react-toastify";
+import { AiFillCar, AiOutlineSetting } from "react-icons/ai";
+import { Col, Container, Row } from "react-bootstrap";
 import StripeCheckout from "react-stripe-checkout";
+import { BsFuelPumpDiesel } from "react-icons/bs";
+import { MdReduceCapacity } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import moment from "moment";
 
 import Spinner from "../components/Spinner";
 import { getCarById } from "../redux/actions/carsActions";
 import { bookingCar } from "../redux/actions/bookActions";
+
+import "./bookingCar.scss";
 
 const BookingCar = () => {
   const { carId } = useParams();
@@ -25,9 +31,6 @@ const BookingCar = () => {
 
   const userID = user?.data?._id;
   const selectTimeSlot = (value) => {
-    // console.log("Selected Time: ", value);
-    //  console.log('moment',  moment(value[0]).format("MMM DD YYYY HH:mm"));
-    //  console.log('moment',  moment(value[1]).format("MMM DD YYYY HH:mm"));
     // moment to read the date and time
     const startDate = moment(value[0]?.$d).format("YYYY-MM-DD h:mm");
     const endDate = moment(value[1]?.$d).format("YYYY-MM-DD h:mm");
@@ -51,41 +54,7 @@ const BookingCar = () => {
     //  eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalHours, driver, car?.rentPerHour]);
 
-  // const bookCar = () => {
-  //   // console.log("bookCar", carId, from, to, totalHours, driver, totalAmount);
-  //   //   const bookingData = {
-  //   //     carId,
-  //   //     from,
-  //   //     to,
-  //   //     totalHours,
-  //   //     driver,
-  //   //     totalAmount,
-  //   //   };
-  //   //   console.log("bookingData", bookingData);
-  //   // };
-  //   const bookingData = {
-  //     user: userID,
-  //     car: carId,
-  //     from,
-  //     to,
-  //     totalHours,
-  //     totalAmount,
-  //     driverRequired: driver,
-  //     bookedTimeSlot: {
-  //       from,
-  //       to,
-  //     },
-  //   };
-  //   dispatch(bookingCar({ bookingData, toast }));
-  //   // if (bookingData) {
-  //   //   toast.success("Car booked successfully");
-  //   // } else {
-  //   //   toast.error("Car booking failed");
-  //   // }
-  // };
-
   const onToken = (token) => {
-     // bookCar();
     const bookingData = {
       user: userID,
       car: carId,
@@ -98,171 +67,172 @@ const BookingCar = () => {
         from,
         to,
       },
-      token
+      token,
     };
     dispatch(bookingCar({ bookingData, toast }));
-    // if (bookingData) {
-    //   toast.success("Car booked successfully");
-    // } else {
-    //   toast.error("Car booking failed");
-    // }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <div className='container mt-5'>
+    <Container className=' mt-5'>
       {loading && <Spinner />}
-      {/* start and end date */}
-      <div className='row'></div>
+      <section>
+        <Container>
+          <Row>
+            <Col lg='6'>
+              <img src={car?.image} alt='' className='w-100' />
+            </Col>
+            <Col lg='6'>
+              <div className='car__info'>
+                <h2 className='section__title'>{car?.name}</h2>
 
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-6'>
-            <img src={car?.image} className='card-img-top' alt={car?.name} />
-          </div>
-          <div className='col-md-6'>
-            {/* divider line */}
-            <h2>Car Info</h2>
-            <hr className='my-4' />
-            <h1>{car?.name}</h1>
-            <p>Rent per hour: {car?.rentPerHour}€</p>
-            <p>Fuel Type: {car?.feulType}</p>
-            <p> Capacity: {car?.capacity}</p>
-          </div>
-          <RangePicker
-            showTime={{ format: "HH:mm" }}
-            showMinutes={true}
-            showHours={true}
-            format={"YYYY-MM-DD h:mm"}
-            onChange={selectTimeSlot}
-          />
-          <button className='btn-1' onClick={() => setShowModal(true)}>
-            See booked Slots
-          </button>
-          {from && to && (
-            <>
-              <p>
-                Total Hours: <b> {totalHours}</b>
-              </p>
-              <p>
-                Rent per hour: <b>{car?.rentPerHour}€</b>
-              </p>
+                <div className=' d-flex align-items-center gap-5 mb-4 mt-3'>
+                  <h6 className='rent__price fw-bold fs-4'>
+                    ${car?.rentPerHour} / hour
+                  </h6>
+                </div>
 
-              <Checkbox
-                type='checkbox'
-                onChange={(e) => {
-                  setDriver(e.target.checked);
-                  if (e.target.checked) {
-                    setDriver(true);
-                  } else {
-                    setDriver(false);
-                  }
-                }}
-              >
-                Driver
-              </Checkbox>
-
-              <p>
-                Total Amount: <b>{totalAmount}€</b>
-              </p>
-
-              {/* <button onClick={bookCar} className='btn btn-primary'>
-                Book Now
-              </button> */}
-              <StripeCheckout
-                currency='EUR'
-                stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
-                // stripeKey="pk_test_51NAHdSCZC0LRtBphsevCWHZw2pQZ3I4O5GXFIUPS9domxtc6TFhcme4UHthC1dHa9M8NyYQcaWeS0vRuKNXqLeG700tUQ1Icv1"
-                token={onToken}
-                shippingAddress
-                amount={totalAmount * 100}
-              >
-                <button
-                  className='btn1 '
-                  // onClick={bookCar}
-                >
-                  Pay Now
-                </button>
-              </StripeCheckout>
-            </>
-          )}
-          {/* <div className='card'> */}
-          {/* <img
-                src={car?.image}
-                className='card-img-top'
-                alt={car?.name}
-                style={{ height: "200px" }}
-              />
-              <div className='card-body'>
-                <h5 className='card-title'>{car?.name}</h5>
-                <p className='card-text'>{car?.description}</p>
-                <p className='card-text'>
-                  Rent per hour: {car?.rentPerHour}€
+                <p className='section__description'>
+                  {/* {car?.description} */} description coming soon Lorem
+                  ipsum, dolor sit amet consectetur adipisicing elit. Fuga enim,
+                  saepe cum, provident similique voluptatum vero sint
+                  perspiciatis, deleniti ab nihil. Odit consectetur officiis
+                  maiores minus, commodi officia vel eveniet. Lorem ipsum dolor
+                  sit amet consectetur adipisicing elit. Quisquam, voluptatum.
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, voluptatum.
                 </p>
 
-                <form>
-                  <div className='form-group'>
-                    <label htmlFor='from'>From</label>
-                    <input
-                      type='datetime-local'
-                      className='form-control'
-                      id='from'
-                      name='from'
-                      placeholder='From'
-                    />
+                <div
+                  className=' d-flex align-items-center mt-3'
+                  style={{ columnGap: "4rem" }}
+                >
+                  <span className=' d-flex align-items-center gap-1 section__description'>
+                    <AiFillCar style={{ color: "#E57C23" }} /> model coming soon
+                  </span>
 
-                    <label htmlFor='to'>To</label>
-                    <input
-                      type='datetime-local'
-                      className='form-control'
-                      id='to'
-                      name='to'
-                      placeholder='To'
-                    />
+                  <span className=' d-flex align-items-center gap-1 section__description'>
+                    <AiOutlineSetting style={{ color: "#E57C23" }} /> type
+                    coming soon automatic or manual
+                  </span>
 
-                    <label htmlFor='name'>Name</label>
-                    <input
-                      type='text'
-                      className='form-control'
-                      id='name'
-                      name='name'
-                      placeholder='Name'
-                    />
+                  <span className=' d-flex align-items-center gap-1 section__description'>
+                    <BsFuelPumpDiesel style={{ color: "#E57C23" }} />
+                    {car?.feulType}
+                  </span>
+                </div>
 
-                    <label htmlFor='email'>Email</label>
-                    <input
-                      type='email'
-                      className='form-control'
-                      id='email'
-                      name='email'
-                      placeholder='Email'
-                    />
+                <div
+                  className=' d-flex align-items-center mt-3'
+                  style={{ columnGap: "2.8rem" }}
+                >
+                  <span className=' d-flex align-items-center gap-1 section__description'>
+                    <MdReduceCapacity style={{ color: "#E57C23" }} />
+                    {car?.capacity} seats
+                  </span>
 
-                    <label htmlFor='phone'>Phone</label>
+                  <span className=' d-flex align-items-center gap-1 section__description'>
+                    <i
+                      className='ri-wheelchair-line'
+                      style={{ color: "#f9a826" }}
+                    ></i>{" "}
+                    {/* {singleCarItem.seatType} */}
+                  </span>
 
-                    <input
-                      type='text'
-                      className='form-control'
-                      id='phone'
-                      name='phone'
-                      placeholder='Phone'
-                    />
-
-                    <label htmlFor='message'>Message</label>
-                    <textarea
-                      className='form-control'
-                      id='message'
-                      name='message'
-                      placeholder='Message'
-                    ></textarea>
-
-                    <button type='submit' className='btn btn-primary mt-3'>
-                      Submit
-                    </button>
-                  </div>
-                </form>
+                  <span className=' d-flex align-items-center gap-1 section__description'>
+                    <i
+                      className='ri-building-2-line'
+                      style={{ color: "#E57C23" }}
+                    ></i>{" "}
+                    {/* {singleCarItem.brand} */}
+                  </span>
+                </div>
               </div>
-            </div> */}
-        </div>
-      </div>
+
+              {/* <RangePicker
+                showTime={{ format: "HH:mm" }}
+                showMinutes={true}
+                showHours={true}
+                format={"YYYY-MM-DD h:mm"}
+                onChange={selectTimeSlot}
+              /> */}
+            </Col>
+          </Row>
+        </Container>
+      </section>
+      <section>
+        <Container>
+          <Row>
+            <Col lg='3'>
+              <button className='book__btn' onClick={() => setShowModal(true)}>
+                Check booked cars
+              </button>
+            </Col>
+            <Col lg='9'>
+              <RangePicker
+                showTime={{ format: "HH:mm" }}
+                showMinutes={true}
+                showHours={true}
+                format={"YYYY-MM-DD h:mm"}
+                onChange={selectTimeSlot}
+              />
+            </Col>
+            {from && to && (
+              <Row>
+                <Col lg='12' className='mt-2'>
+                  <div className='widget'>
+                    <h2>
+                      <strong>Booking Summary</strong>
+                    </h2>
+                    <ul className='list-unstyled'>
+                      <li>
+                        Rent per hour: <b>{car?.rentPerHour}€</b>
+                      </li>
+                      <li>
+                        <Checkbox
+                          type='checkbox'
+                          onChange={(e) => {
+                            setDriver(e.target.checked);
+                            if (e.target.checked) {
+                              setDriver(true);
+                            } else {
+                              setDriver(false);
+                            }
+                          }}
+                        >
+                          Driver
+                        </Checkbox>
+                      </li>
+                      <li>
+                        Total hours: <b>{totalHours} hours</b>
+                      </li>
+                      <li>
+                        Total amount: <b>{totalAmount}€</b>
+                      </li>
+                      <li>
+                        <StripeCheckout
+                          currency='EUR'
+                          stripeKey={
+                            process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
+                          }
+                          token={onToken}
+                          shippingAddress
+                          amount={totalAmount * 100}
+                        >
+                          <button className='book__btn '>Pay Now</button>
+                        </StripeCheckout>
+                      </li>
+                    </ul>
+                  </div>
+                </Col>
+              </Row>
+            )}
+          </Row>
+        </Container>
+      </section>
       <Modal
         title='Booked Time Slots'
         onCancel={() => setShowModal(false)}
@@ -281,7 +251,7 @@ const BookingCar = () => {
             );
           })}
       </Modal>
-    </div>
+    </Container>
   );
 };
 
