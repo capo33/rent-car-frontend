@@ -6,6 +6,7 @@ import BookingCar from './pages/BookingCar';
  import Header from './components/Header';
 import UserBooking from './components/UserBooking';
 import { AddCar } from './pages/AddCar';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/booking-car/:carId" element={<BookingCar />} />
         <Route path="/user-booking" element={<UserBooking />} />
         <Route path="/addcar" element={<AddCar />} />
+        <Route path="/admin" element={<Admin />} />
 
       </Routes>
     </Router>    
