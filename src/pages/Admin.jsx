@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Checkbox, Col, DatePicker, Row } from "antd";
+import { Checkbox, Col, DatePicker, Popconfirm, Row } from "antd";
 import moment from "moment";
-import { getCars } from "../redux/actions/carsActions";
+import { deleteCar, getCars } from "../redux/actions/carsActions";
 import Spinner from "../components/Spinner";
 
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -11,9 +11,9 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 const Admin = () => {
   const { cars, loading } = useSelector((state) => state.cars);
   const [totalCars, setTotalCars] = useState([]);
-  
+
   const dispatch = useDispatch();
- 
+
   useEffect(() => {
     dispatch(getCars());
   }, [dispatch]);
@@ -22,16 +22,21 @@ const Admin = () => {
     setTotalCars(cars);
   }, [cars]);
 
+  const handleDelete = (id) => {
+    dispatch(deleteCar(id));
+    dispatch(getCars());
+  };
+
   const svgStyle = {
     width: "20px",
     height: "20px",
-    color:   "green",
-   };
+    color: "green",
+  };
   const svg2Style = {
     width: "20px",
     height: "20px",
-    color:   "red"  ,
-   };
+    color: "red",
+  };
   return (
     <>
       {loading && <Spinner />}
@@ -56,12 +61,20 @@ const Admin = () => {
                     className='d-flex justify-content-around 
                    align-items-center'
                   >
-                  <Link to={`/editcar/${car._id}`}>
-
-                    <EditOutlined style={svgStyle} />
-                  </Link>
-                    <DeleteOutlined style={svg2Style} 
-                   />
+                    <Link to={`/editcar/${car._id}`}>
+                      <EditOutlined style={svgStyle} />
+                    </Link>
+                    <Popconfirm
+                      title='Are you sure to delete this car?'
+                      onConfirm={() => {
+                        dispatch(deleteCar(car._id));
+                      }}
+                      onCancel={() => console.log("cancel")}
+                      okText='Yes'
+                      cancelText='No'
+                    >
+                      <DeleteOutlined style={svg2Style} />
+                    </Popconfirm>
                   </div>
                 </div>
               </div>

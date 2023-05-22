@@ -90,3 +90,27 @@ export const addCar = (carData, toast) => async (dispatch) => {
     });
   }
 };
+
+// Delete car
+export const deleteCar = (id, toast) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.DELETE_CAR_REQUEST,
+    });
+
+    const { data } = await axios.delete(`${API}/api/v1/cars/${id}`);
+
+    dispatch({
+      type: types.DELETE_CAR_SUCCESS,
+      payload: data,
+    });
+    dispatch(getCars());
+    toast.success("Car deleted successfully");
+  } catch (error) {
+    dispatch({
+      type: types.DELETE_CAR_FAILURE,
+      payload: error?.response?.data?.message,
+    });
+  }
+} 
+

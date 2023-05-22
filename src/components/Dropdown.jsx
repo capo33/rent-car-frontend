@@ -6,12 +6,13 @@ import { logOut } from "../redux/actions/authActions";
 import "./Dropdown.css";
 const Dropdown = () => {
   const { user } = useSelector((state) => state.auth);
+  console.log("user", user?.data?.isAdmin);
   const dispatch = useDispatch();
 
   const logout = () => {
     dispatch(logOut());
   };
-
+  
   return (
     <div className='dropdown m-2'>
       <button
@@ -28,7 +29,20 @@ const Dropdown = () => {
             Home
           </Link>
         </li>
-
+        {user && user?.data?.isAdmin && (
+          <>
+            <li>
+              <Link className='dropdown-item' to='/addcar'>
+                Add Car
+              </Link>
+            </li>
+            <li>
+              <Link className='dropdown-item' to='/admin'>
+                Cars
+              </Link>
+            </li>
+          </>
+        )}
         {user ? (
           <>
             <li>

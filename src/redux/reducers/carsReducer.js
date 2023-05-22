@@ -13,6 +13,7 @@ export const carsReducer = (state = initialState, action) => {
     case types.GET_CAR_BY_ID_REQUEST:
     case types.UPDATE_CAR_REQUEST:
     case types.CREATE_CAR_REQUEST:
+    case types.DELETE_CAR_REQUEST:
       return {
         ...state,
         loading: true,
@@ -47,6 +48,13 @@ export const carsReducer = (state = initialState, action) => {
         loading: false,
         cars: [...state.cars, action.payload],
       };
+    // Delete car
+    case types.DELETE_CAR_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        cars: state.cars.filter((car) => car._id !== action.payload),
+      };
 
     case types.GET_CARS_FAILURE:
       return {
@@ -63,7 +71,8 @@ export const carsReducer = (state = initialState, action) => {
         car: {},
       };
     case types.CREATE_CAR_FAILURE:
-      return {
+    case types.UPDATE_CAR_FAILURE:
+       return {
         ...state,
         loading: false,
         error: action.payload.error,

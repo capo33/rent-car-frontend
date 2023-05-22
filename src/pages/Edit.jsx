@@ -54,8 +54,15 @@ export const Edit = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(carData);
-    // dispatch(addCar(carData, toast));
     dispatch(updateCar(carId, carData, toast));
+    setCarData({
+      name: "",
+      image: "",
+      rentPerHour: "",
+      capacity: "",
+      feulType: "",
+    });
+    
   };
 
   return (
