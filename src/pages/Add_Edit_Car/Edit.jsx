@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
-import { addCar } from "../../redux/actions/carsActions";
+import { getCarById, updateCar } from "../../redux/actions/carsActions";
 
-import "./add-car.css";
-const AddCar = () => {
+const Edit = () => {
   const [carData, setCarData] = useState({
     name: "",
     image: "",
@@ -16,11 +16,34 @@ const AddCar = () => {
     gearType: "",
   });
 
-  const { user } = useSelector((state) => state.auth);
-
+ 
   const dispatch = useDispatch();
-  const token = user?.token;
-  console.log("token", token);
+  const { carId } = useParams();
+  const { car } = useSelector((state) => state.cars);
+
+  useEffect(() => {
+    dispatch(getCarById(carId));
+    setCarData({
+      name: car?.name,
+      image: car?.image,
+      rentPerHour: car?.rentPerHour,
+      capacity: car?.capacity,
+      feulType: car?.feulType,
+      model: car?.model,
+      gearType: car?.gearType,
+    });
+  }, [
+    dispatch,
+    carId,
+    car?.name,
+    car?.image,
+    car?.rentPerHour,
+    car?.capacity,
+    car?.feulType,
+    car?.model,
+    car?.gearType,
+  ]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCarData((prev) => {
@@ -34,7 +57,7 @@ const AddCar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(carData);
-    dispatch(addCar(carData, toast));
+    dispatch(updateCar(carId, carData, toast));
     setCarData({
       name: "",
       image: "",
@@ -169,7 +192,7 @@ const AddCar = () => {
               <div className='row justify-content-end'>
                 <div className='form-group col-sm-6'>
                   <button type='submit' className='btn btn-primary'>
-                    Add Car
+                    Update Car
                   </button>
                 </div>
               </div>
@@ -181,4 +204,4 @@ const AddCar = () => {
   );
 };
 
-export default AddCar;
+export default Edit;

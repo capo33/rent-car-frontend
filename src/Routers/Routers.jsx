@@ -2,13 +2,13 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "../pages/Home";
-import Edit from "../pages/Edit";
 import Admin from "../pages/Admin";
 import Login from "../pages/Login";
+import Edit from "../pages/AddCar/Edit";
 import Register from "../pages/Register";
- import UserBooking from "../components/UserBooking";
-import AddCar from "../pages/AddCar/AddCar";
+import AddCar from "../pages/Add_Edit_Car/AddCar";
 import BookingCar from "../pages/BookinCar/BookingCar";
+import UserBooking from "../components/UserBooking";
 
 const Routers = () => {
   return (

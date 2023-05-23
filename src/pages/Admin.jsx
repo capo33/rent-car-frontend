@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { Checkbox, Col, DatePicker, Popconfirm, Row } from "antd";
-import moment from "moment";
-import { deleteCar, getCars } from "../redux/actions/carsActions";
-import Spinner from "../components/Spinner";
-
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { Popconfirm } from "antd";
+
+import Spinner from "../components/Spinner";
+import { deleteCar, getCars } from "../redux/actions/carsActions";
 
 const Admin = () => {
   const { cars, loading } = useSelector((state) => state.cars);
@@ -21,11 +20,6 @@ const Admin = () => {
   useEffect(() => {
     setTotalCars(cars);
   }, [cars]);
-
-  const handleDelete = (id) => {
-    dispatch(deleteCar(id));
-    dispatch(getCars());
-  };
 
   const svgStyle = {
     width: "20px",
