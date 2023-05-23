@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { addCar } from "../../redux/actions/carsActions";
 
 import "./add-edit-car.scss";
+import { Row } from "react-bootstrap";
 
 const AddCar = () => {
   const [carData, setCarData] = useState({
@@ -17,11 +18,8 @@ const AddCar = () => {
     gearType: "",
   });
 
-  const { user } = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
-  const token = user?.token;
-  console.log("token", token);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCarData((prev) => {
@@ -167,13 +165,13 @@ const AddCar = () => {
                 </div>
               </div>
 
-              <div className='row justify-content-end'>
+              <Row className='justify-content-end'>
                 <div className='form-group col-sm-6'>
                   <button type='submit' className='btn btn-primary'>
                     Add Car
                   </button>
                 </div>
-              </div>
+              </Row>
             </form>
           </div>
         </div>

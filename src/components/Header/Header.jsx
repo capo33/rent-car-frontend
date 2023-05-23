@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+
 import { Container, Row, Col } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { MenuOutlined, PhoneOutlined } from "@ant-design/icons";
@@ -95,7 +96,10 @@ const Navbar = () => {
             ) : (
               <Col lg='6' md='6' sm='6'>
                 <div className='header__top__right d-flex align-items-center justify-content-end gap-3'>
-                  <Link to='#' className=' d-flex align-items-center gap-1'>
+                  <Link
+                    to='/login'
+                    className=' d-flex align-items-center gap-1'
+                  >
                     <BiLogIn /> Login / Register
                   </Link>
                 </div>
@@ -110,7 +114,7 @@ const Navbar = () => {
             <Col lg='4' md='3' sm='4'>
               <div className='logo'>
                 <h1>
-                  <Link to='/home' className=' d-flex align-items-center gap-2'>
+                  <Link to='/' className=' d-flex align-items-center gap-2'>
                     <span>
                       <AiFillCar style={{ width: "30px", height: "30px" }} />{" "}
                       Car Rental
@@ -161,7 +165,7 @@ const Navbar = () => {
               className=' d-flex align-items-center justify-content-end '
             >
               <button className='header__btn btn '>
-                <Link to='/contact'>
+                <Link to='/'>
                   <PhoneOutlined />
                   Request a call
                 </Link>
@@ -180,7 +184,20 @@ const Navbar = () => {
               <MenuOutlined onClick={toggleMenu} />
             </span>
             <div className='navigation' ref={menuRef} onClick={toggleMenu}>
-              <div className='menu'>{admin ? adminLinkMap : userLinkMap}</div>
+              <div className='menu'>
+                {admin ? (
+                  adminLinkMap
+                ) : user ? (
+                  userLinkMap
+                ) : (
+                  <Link
+                    to='/'
+                    style={{ color: "white", textDecoration: "none" }}
+                  >
+                    Home
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         </Container>
