@@ -32,7 +32,9 @@ const UserBooking = () => {
             My Bookings
           </div>
           <>
-            {bookings?.data?.length === 0 &&<p className='text-center'>No Bookings</p>}
+            {bookings?.data?.length === 0 && (
+              <p className='text-center'>No Bookings</p>
+            )}
             {bookings?.data &&
               bookings?.data
                 ?.filter((booking) => booking.user === user.data._id)
@@ -40,16 +42,16 @@ const UserBooking = () => {
                   console.log(booking);
                   return (
                     <article className='postcard light blue'>
-                      <a className='postcard__img_link' href='/'>
+                      <div className='postcard__img_link'>
                         <img
                           className='postcard__img'
                           src={booking?.car?.image}
                           alt='car'
                         />
-                      </a>
+                      </div>
                       <div className='postcard__text t-dark'>
                         <h1 className='postcard__title blue'>
-                          <a href='/'>{booking?.car?.name}</a>
+                          {booking?.car?.name}
                         </h1>
                         <div className='postcard__subtitle small'>
                           <time dateTime='2020-05-25 12:00:00'>
@@ -90,7 +92,7 @@ const UserBooking = () => {
                           <button
                             className='btn btn-danger'
                             onClick={() => {
-                             handleDelete(booking?._id);
+                              handleDelete(booking?._id);
                             }}
                           >
                             <MdDeleteForever />
