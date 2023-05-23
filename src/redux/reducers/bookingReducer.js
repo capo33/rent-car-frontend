@@ -11,6 +11,7 @@ const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.BOOKING_CAR_REQUEST:
     case types.GET_BOOKINGS_REQUEST:
+    case types.DELETE_BOOKING_REQUEST:
       return {
         ...state,
         loading: true,
@@ -30,8 +31,18 @@ const bookingReducer = (state = initialState, action) => {
         bookings: action.payload,
       };
 
+    case types.DELETE_BOOKING_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        bookings: state.bookings.filter(
+          (booking) => booking._id !== action.payload
+        ),
+      };
+
     case types.BOOKING_CAR_FAILURE:
     case types.GET_BOOKINGS_FAILURE:
+    case types.DELETE_BOOKING_FAILURE:
       return {
         ...state,
         loading: false,

@@ -10,9 +10,9 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import moment from "moment";
 
-import Spinner from "../components/Spinner";
-import { getCarById } from "../redux/actions/carsActions";
-import { bookingCar } from "../redux/actions/bookActions";
+import Spinner from "../../components/Spinner";
+import { getCarById } from "../../redux/actions/carsActions";
+import { bookingCar } from "../../redux/actions/bookActions";
 
 import "./bookingCar.scss";
 
@@ -51,7 +51,7 @@ const BookingCar = () => {
     setTotalAmount(totalHours * car?.rentPerHour);
 
     if (driver) {
-      setTotalAmount(totalAmount + 50 * totalHours);
+      setTotalAmount(totalAmount + 10 * totalHours);
     }
     //  eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalHours, driver, car?.rentPerHour]);
@@ -98,14 +98,7 @@ const BookingCar = () => {
                 </div>
 
                 <p className='section__description'>
-                  {/* {car?.description} */} description coming soon Lorem
-                  ipsum, dolor sit amet consectetur adipisicing elit. Fuga enim,
-                  saepe cum, provident similique voluptatum vero sint
-                  perspiciatis, deleniti ab nihil. Odit consectetur officiis
-                  maiores minus, commodi officia vel eveniet. Lorem ipsum dolor
-                  sit amet consectetur adipisicing elit. Quisquam, voluptatum.
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quisquam, voluptatum.
+                  description about the car will be here soon ...
                 </p>
 
                 <div
@@ -117,7 +110,7 @@ const BookingCar = () => {
                   </span>
 
                   <span className=' d-flex align-items-center gap-1 section__description'>
-                    <AiOutlineSetting style={{ color: "#E57C23" }} /> type
+                    <AiOutlineSetting style={{ color: "#E57C23" }} /> 
                     {car?.gearType}
                   </span>
 
@@ -131,14 +124,6 @@ const BookingCar = () => {
                   </span>
                 </div>
               </div>
-
-              {/* <RangePicker
-                showTime={{ format: "HH:mm" }}
-                showMinutes={true}
-                showHours={true}
-                format={"YYYY-MM-DD h:mm"}
-                onChange={selectTimeSlot}
-              /> */}
             </Col>
           </Row>
         </Container>

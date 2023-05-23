@@ -1,6 +1,0 @@
-/* hide dropdown with  */
-@media screen and (max-width: 768px) {
-  .dropdown {
-    /* display: none; */
-  }
-}

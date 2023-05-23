@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
+import { toast } from "react-toastify";
+import { MdDeleteForever } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 
-import { getBookings } from "../redux/actions/bookActions";
+import { deleteBooking, getBookings } from "../redux/actions/bookActions";
 
 import "./userBooking.scss";
 
@@ -10,12 +12,18 @@ const UserBooking = () => {
   const { bookings } = useSelector((state) => state.booking);
   const { user } = useSelector((state) => state.auth);
 
+  const token = user?.token;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getBookings());
-  }, [dispatch]);
+    dispatch(getBookings(token));
+  }, [dispatch, token]);
 
+  const handleDelete = (id) => {
+    dispatch(deleteBooking(id, token, toast));
+    dispatch(getBookings(token));
+  };
   return (
     <div>
       <section className='light'>
@@ -23,11 +31,13 @@ const UserBooking = () => {
           <div className='h1 text-center text-dark' id='pageHeaderTitle'>
             My Bookings
           </div>
-          <div className=''>
+          <>
+            {bookings?.data?.length === 0 &&<p className='text-center'>No Bookings</p>}
             {bookings?.data &&
               bookings?.data
                 ?.filter((booking) => booking.user === user.data._id)
                 .map((booking) => {
+                  console.log(booking);
                   return (
                     <article className='postcard light blue'>
                       <a className='postcard__img_link' href='/'>
@@ -77,12 +87,20 @@ const UserBooking = () => {
                               to: {booking?.bookedTimeSlot?.to}
                             </li>
                           </ul>
+                          <button
+                            className='btn btn-danger'
+                            onClick={() => {
+                             handleDelete(booking?._id);
+                            }}
+                          >
+                            <MdDeleteForever />
+                          </button>
                         </div>
                       </div>
                     </article>
                   );
                 })}
-          </div>
+          </>
         </div>
       </section>
     </div>

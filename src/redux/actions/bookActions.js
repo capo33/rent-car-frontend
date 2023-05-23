@@ -57,3 +57,31 @@ export const getBookings = (token) => async (dispatch) => {
     });
   }
 }
+
+// Delete a booking
+export const deleteBooking = (id, token, toast) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.DELETE_BOOKING_REQUEST,
+    });
+
+    const { data } = await axios.delete(`${API}/api/v1/bookings/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token} `,
+      },
+    });
+
+    dispatch({
+      type: types.DELETE_BOOKING_SUCCESS,
+      payload: data,
+    });
+    dispatch(getBookings(token));
+    toast.success("Booking deleted successfully");
+  } catch (error) {
+    dispatch({
+      type: types.DELETE_BOOKING_FAILURE,
+      payload: error?.response?.data?.message,
+    });
+  }
+}

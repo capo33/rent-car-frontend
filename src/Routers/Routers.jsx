@@ -6,9 +6,9 @@ import Edit from "../pages/Edit";
 import Admin from "../pages/Admin";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import BookingCar from "../pages/BookingCar";
-import UserBooking from "../components/UserBooking";
+ import UserBooking from "../components/UserBooking";
 import AddCar from "../pages/AddCar/AddCar";
+import BookingCar from "../pages/BookinCar/BookingCar";
 
 const Routers = () => {
   return (
