@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { addCar } from "../redux/actions/carsActions";
 
-export const AddCar = () => {
+ const AddCar = () => {
   const [carData, setCarData] = useState({
     name: "",
     image: "",
@@ -112,3 +112,5 @@ console.log('token', token);
     </div>
   );
 };
+
+  export default AddCar;

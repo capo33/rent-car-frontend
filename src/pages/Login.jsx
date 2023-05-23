@@ -4,9 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { login } from "../redux/actions/authActions";
-import Message from "../components/Message";
 import { toast } from "react-toastify";
-import "./login.css";
 
 const Login = () => {
   const [formData, setFormData] = React.useState({

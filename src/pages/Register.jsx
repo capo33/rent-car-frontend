@@ -2,11 +2,9 @@ import React, { useEffect } from "react";
 import { Col, Row, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 import { register } from "../redux/actions/authActions";
-import Message from "../components/Message";
-import { toast } from "react-toastify";
-import "./login.css";
 
 const Register = () => {
   const [formData, setFormData] = React.useState({
@@ -35,7 +33,7 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    dispatch(register(formData, navigate,toast));
+    dispatch(register(formData, navigate, toast));
   };
 
   const handleChange = (e) => {
@@ -43,10 +41,9 @@ const Register = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
- 
   return (
     <>
-       <div className='Container  d-flex justify-content-center m-5'>
+      <div className='Container  d-flex justify-content-center m-5'>
         <Row className='d-flex justify-content-center'>
           <Col xs={12}>
             <form className='shadow-lg p-5' onSubmit={handleSubmit}>

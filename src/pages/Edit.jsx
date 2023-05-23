@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCar, getCarById, updateCar } from "../redux/actions/carsActions";
 import { useParams } from "react-router-dom";
 
-export const Edit = () => {
+  const Edit = () => {
   const [carData, setCarData] = useState({
     name: "",
     image: "",
@@ -143,3 +143,5 @@ export const Edit = () => {
     </div>
   );
 };
+
+export default Edit;
