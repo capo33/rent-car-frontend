@@ -29,7 +29,7 @@ yarn start
 ## Tech
 
 - [React]
-- [Typescript]
+- [JavaScript]
 
 [React]: https://react.dev/
-[Typescript]: https://www.typescriptlang.org/
+[JavaScript]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/
