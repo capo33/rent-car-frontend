@@ -15,8 +15,6 @@ const { RangePicker } = DatePicker;
 const Home = () => {
   const { cars, loading } = useSelector((state) => state.cars);
   const [totalCars, setTotalCars] = useState([]);
-  console.log('totalCars', totalCars);
-  console.log('cars', cars);
 
   const dispatch = useDispatch();
 
@@ -32,7 +30,7 @@ const Home = () => {
   const setFilterCars = (values) => {
     const startDate = moment(values[0]?.$d).format("YYYY-MM-DD h:mm");
     const endDate = moment(values[1]?.$d).format("YYYY-MM-DD h:mm");
-     const filterCars = cars.filter((car) => {
+    const filterCars = cars.filter((car) => {
       return car.bookedTimeSlots.every(
         (booking) =>
           moment(startDate).isBefore(booking.from) ||

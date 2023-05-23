@@ -32,7 +32,6 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     dispatch(register(formData, navigate, toast));
   };
 

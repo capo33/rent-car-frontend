@@ -1,5 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Home from "../pages/Home";
 import Admin from "../pages/Admin";
@@ -11,16 +13,32 @@ import BookingCar from "../pages/BookinCar/BookingCar";
 import UserBooking from "../components/UserBooking";
 
 const Routers = () => {
+  const { user } = useSelector((state) => state.auth);
+  const isAdmin = user?.data?.isAdmin;
   return (
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/register' element={<Register />} />
       <Route path='/login' element={<Login />} />
-      <Route path='/booking-car/:carId' element={<BookingCar />} />
-      <Route path='/user-booking' element={<UserBooking />} />
-      <Route path='/addcar' element={<AddCar />} />
-      <Route path='/editcar/:carId' element={<Edit />} />
-      <Route path='/admin' element={<Admin />} />
+      <Route
+        path='/booking-car/:carId'
+        element={user ? <BookingCar /> : <Navigate to='/login' />}
+      />
+      <Route
+        path='/user-booking'
+        element={user ? <UserBooking /> : <Navigate to='/login' />}
+      />
+      <Route
+        path='/addcar'
+        element={isAdmin ? <AddCar /> : <Navigate to='/' />}
+      />
+      <Route
+        path='/editcar/:carId'
+        element={isAdmin ? <Edit /> : <Navigate to='/' />}
+      />
+      <Route path='/admin' element={
+        isAdmin ? <Admin /> : <Navigate to='/' />
+      } />
     </Routes>
   );
 };

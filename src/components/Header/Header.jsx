@@ -46,7 +46,6 @@ const userLinkMap = userLinks.map((link) => (
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
-  console.log("user", user?.data?.isAdmin);
 
   const dispatch = useDispatch();
   const admin = user?.data?.isAdmin;
