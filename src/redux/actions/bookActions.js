@@ -2,7 +2,7 @@ import axios from "axios";
 
 import * as types from "../constants/bookConstants";
 
-const API = "http://localhost:5000";
+const API = "https://ren-car-api.onrender.com";
 
 // Book a car
 export const bookingCar = ({bookingData, token, toast}) => async (dispatch) => {

@@ -2,7 +2,7 @@ import axios from "axios";
 
 import * as actionTypes from "../constants/authConstants";
 
-const API = "http://localhost:5000";
+const API = "https://ren-car-api.onrender.com";
 
 export const login = (formData) => async (dispatch) => {
   try {

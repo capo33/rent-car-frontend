@@ -60,14 +60,14 @@ export const carsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
+        error: action.payload?.error,
         cars: [],
       };
     case types.GET_CAR_BY_ID_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
+        error: action.payload?.error,
         car: {},
       };
     case types.CREATE_CAR_FAILURE:
@@ -75,7 +75,7 @@ export const carsReducer = (state = initialState, action) => {
        return {
         ...state,
         loading: false,
-        error: action.payload.error,
+        error: action.payload?.error,
       };
     default:
       return state;

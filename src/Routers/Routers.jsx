@@ -4,9 +4,9 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Admin from "../pages/Admin";
 import Login from "../pages/Login";
-import Edit from "../pages/AddCar/Edit";
 import Register from "../pages/Register";
 import AddCar from "../pages/Add_Edit_Car/AddCar";
+import Edit from "../pages/Add_Edit_Car/Edit";
 import BookingCar from "../pages/BookinCar/BookingCar";
 import UserBooking from "../components/UserBooking";
 

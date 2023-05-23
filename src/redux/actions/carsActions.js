@@ -2,7 +2,7 @@ import axios from "axios";
 
 import * as types from "../constants/carConstants";
 
-const API = "http://localhost:5000";
+const API = "https://ren-car-api.onrender.com";
 
 // Get all cars
 export const getCars = () => async (dispatch) => {
@@ -20,7 +20,7 @@ export const getCars = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: types.GET_CARS_FAILURE,
-      payload: error.response.data,
+      payload: error?.response?.data?.message,
     });
   }
 };
@@ -41,7 +41,7 @@ export const getCarById = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: types.GET_CAR_BY_ID_FAILURE,
-      payload: error.response.data,
+      payload: error?.response?.data?.message,
     });
   }
 };
