@@ -113,43 +113,21 @@ const BookingCar = () => {
                   style={{ columnGap: "4rem" }}
                 >
                   <span className=' d-flex align-items-center gap-1 section__description'>
-                    <AiFillCar style={{ color: "#E57C23" }} /> model coming soon
+                    <AiFillCar style={{ color: "#E57C23" }} /> {car?.model}
                   </span>
 
                   <span className=' d-flex align-items-center gap-1 section__description'>
                     <AiOutlineSetting style={{ color: "#E57C23" }} /> type
-                    coming soon automatic or manual
+                    {car?.gearType}
                   </span>
 
                   <span className=' d-flex align-items-center gap-1 section__description'>
                     <BsFuelPumpDiesel style={{ color: "#E57C23" }} />
                     {car?.feulType}
                   </span>
-                </div>
-
-                <div
-                  className=' d-flex align-items-center mt-3'
-                  style={{ columnGap: "2.8rem" }}
-                >
                   <span className=' d-flex align-items-center gap-1 section__description'>
                     <MdReduceCapacity style={{ color: "#E57C23" }} />
                     {car?.capacity} seats
-                  </span>
-
-                  <span className=' d-flex align-items-center gap-1 section__description'>
-                    <i
-                      className='ri-wheelchair-line'
-                      style={{ color: "#f9a826" }}
-                    ></i>{" "}
-                    {/* {singleCarItem.seatType} */}
-                  </span>
-
-                  <span className=' d-flex align-items-center gap-1 section__description'>
-                    <i
-                      className='ri-building-2-line'
-                      style={{ color: "#E57C23" }}
-                    ></i>{" "}
-                    {/* {singleCarItem.brand} */}
                   </span>
                 </div>
               </div>

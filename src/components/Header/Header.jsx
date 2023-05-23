@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-
 import { Container, Row, Col } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { MenuOutlined, PhoneOutlined } from "@ant-design/icons";
@@ -181,9 +180,7 @@ const Navbar = () => {
               <MenuOutlined onClick={toggleMenu} />
             </span>
             <div className='navigation' ref={menuRef} onClick={toggleMenu}>
-            <div className='menu'>
-              {admin ? adminLinkMap : userLinkMap}
-            </div>
+              <div className='menu'>{admin ? adminLinkMap : userLinkMap}</div>
             </div>
           </div>
         </Container>

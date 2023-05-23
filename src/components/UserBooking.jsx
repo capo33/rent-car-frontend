@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
- import moment from "moment";
+import moment from "moment";
 
 import { getBookings } from "../redux/actions/bookActions";
 
@@ -21,7 +21,7 @@ const UserBooking = () => {
       <section className='light'>
         <div className='container py-2'>
           <div className='h1 text-center text-dark' id='pageHeaderTitle'>
-             My Bookings
+            My Bookings
           </div>
           <div className=''>
             {bookings?.data &&

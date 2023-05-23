@@ -4,7 +4,6 @@ export const userLinks = [
     path: "/",
     display: "Home",
   },
-
   {
     id: 2,
     path: "/user-booking",
